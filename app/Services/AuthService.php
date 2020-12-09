@@ -6,6 +6,7 @@ use App\Repositories\AuthRepository;
 use App\Validations\AuthValidation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AuthService
 {

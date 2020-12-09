@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repositories\LectureRepository;
 use App\Validations\LectureValidation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class LectureService
 {

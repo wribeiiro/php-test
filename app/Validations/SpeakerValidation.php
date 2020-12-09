@@ -6,7 +6,7 @@ use App\Validations\AbstractValidation;
 
 class SpeakerValidation extends AbstractValidation {
 
-    public function validateCreate(array $data):? array {
+    public function validateSpeaker(array $data):? array {
 
         return $this->validate($data, [
             'name'   => 'required|string'
