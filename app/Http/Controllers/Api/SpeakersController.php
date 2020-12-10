@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Services\SpeakerService;
+use App\Services\SpeakersService;
 use Illuminate\Http\Request;
 
 class SpeakersController extends Controller
@@ -11,13 +11,9 @@ class SpeakersController extends Controller
 
     protected $speaker_service;
 
-    public function __construct(SpeakerService $speakerService)
+    public function __construct(SpeakersService $speakerService)
     {
         $this->speaker_service = $speakerService;
-    }
-
-    public function viewSpeakers() {
-        return view('speakers.index');
     }
 
     /**
@@ -27,7 +23,6 @@ class SpeakersController extends Controller
      */
     public function index()
     {
-
         try {
             $response['code'] = 200;
             $response['data'] = $this->speaker_service->getAll();
@@ -40,16 +35,6 @@ class SpeakersController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -59,7 +44,7 @@ class SpeakersController extends Controller
     {
         $data = $request->only(['name']);
 
-        $response['code'] = 200;
+        $response['code'] = 201;
         $response['data'] = [];
 
         try {
@@ -100,17 +85,6 @@ class SpeakersController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -125,7 +99,7 @@ class SpeakersController extends Controller
         $response['data'] = [];
 
         try {
-            $result = $this->speaker_service->updateSpeaker($data, $id);
+            $result = $this->speaker_service->updateSpeaker($data, (int) $id);
 
             if (isset($result['code']) && !empty($result['code'])) {
                 $response['code'] = $result['code'];

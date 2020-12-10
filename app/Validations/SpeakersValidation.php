@@ -4,7 +4,7 @@ namespace App\Validations;
 
 use App\Validations\AbstractValidation;
 
-class SpeakerValidation extends AbstractValidation {
+class SpeakersValidation extends AbstractValidation {
 
     public function validateSpeaker(array $data):? array {
 

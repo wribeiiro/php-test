@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Repositories\LectureRepository;
-use App\Validations\LectureValidation;
+use App\Repositories\LecturesRepository;
+use App\Validations\LecturesValidation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -15,11 +15,11 @@ class LectureService
     protected $lecture_repository;
 
     /**
-     * LectureService constructor.
+     * LecturesService constructor.
      *
-     * @param LectureRepository $lectureRepository
+     * @param LecturesRepository $lectureRepository
      */
-    public function __construct(LectureRepository $lectureRepository)
+    public function __construct(LecturesRepository $lectureRepository)
     {
         $this->lecture_repository = $lectureRepository;
     }

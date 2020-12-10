@@ -14,5 +14,6 @@
         </div>
     </div>
     @include('layout.scripts')
+    @yield('custom-script')
   </body>
 </html>

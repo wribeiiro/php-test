@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\Lecture;
 use Illuminate\Support\Facades\DB;
 
-class LectureRepository
+class LecturesRepository
 {
     /**
      * @var Lecture

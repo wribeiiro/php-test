@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\Speaker;
 use Illuminate\Support\Facades\DB;
 
-class SpeakerRepository
+class SpeakersRepository
 {
     /**
      * @var Speaker

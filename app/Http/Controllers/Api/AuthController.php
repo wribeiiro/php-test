@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Validations\AuthValidation;
 
 class AuthController extends Controller
 {
@@ -15,7 +17,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login', 'loginForm']]);
     }
 
     /**
@@ -30,14 +32,30 @@ class AuthController extends Controller
             'password'
         ]);
 
-        if (!$token = auth('api')->attempt($credentials)) {
-            return response()->json([
-                'code' => 401,
-                'data' => 'Unauthorized'
-            ], 401);
+        $this->validate = (new AuthValidation)->validateAuth($request->all());
+
+        if ($this->validate) {
+            return response()->json($this->validate, 400);
         }
 
-        return $this->respondWithToken($token);
+        try {
+
+            if (!$token = auth('api')->attempt($credentials)) {
+                return response()->json([
+                    'code' => 401,
+                    'data' => 'Unauthorized'
+                ], 401);
+            }
+
+            return response()->json($this->getToken($token), 200);
+
+        } catch (\Exception $e) {
+
+            return response()->json([
+                "data" => $e->getMessage(),
+                "code" => 500
+            ], 500);
+        }
     }
 
     /**
@@ -63,8 +81,8 @@ class AuthController extends Controller
         auth('api')->logout();
 
         return response()->json([
-            'code'    => 200,
-            'message' => 'Successfully logged out'
+            'code' => 200,
+            'data' => 'Successfully logged out'
         ], 200);
     }
 
@@ -75,7 +93,7 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken(auth('api')->refresh());
+        return response()->json($this->getToken(auth('api')->refresh(), 200));
     }
 
     /**
@@ -83,17 +101,67 @@ class AuthController extends Controller
      *
      * @param  string $token
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return array
      */
-    protected function respondWithToken($token)
+    protected function getToken($token)
     {
-        return response()->json([
+        return [
             'code' => 200,
             'data' => [
                 'access_token'  => $token,
                 'token_type'    => 'bearer',
-                'expires_in'    => auth('api')->factory()->getTTL() * 60
+                'expires_in'    => auth('api')->factory()->getTTL() * 120
             ]
-        ], 200);
+        ];
+    }
+
+    public function loginForm(Request $request) {
+
+        $credentials = $request->only([
+            'email',
+            'password'
+        ]);
+
+        $this->validate = (new AuthValidation)->validateAuth($request->all());
+
+        if ($this->validate !== null) {
+            return response()->json($this->validate, 400);
+        }
+
+        try {
+            if (!$token = auth('api')->attempt($credentials)) {
+                return response()->json([
+                    'code' => 401,
+                    'data' => 'Unauthorized'
+                ], 401);
+            }
+
+            session()->put('sessionUser', [
+                'id'          => $this->me()->original['data']->id,
+                'email'       => $this->me()->original['data']->email,
+                'username'    => explode('@', $this->me()->original['data']->email)[1],
+                'isLoggedIn'  => true,
+                'accessToken' => $this->getToken($token)['data']
+            ]);
+
+            return response()->json([
+                "data" => $this->getToken($token)['data'],
+                "code" => 200
+            ], 200);
+
+        } catch (\Exception $e) {
+
+            return response()->json([
+                "data" => $e->getMessage(),
+                "code" => 500
+            ], 500);
+        }
+    }
+
+    public function logoutForm()
+    {
+        auth('api')->logout();
+        session()->destroy('sessionUser');
+        return redirect('/');
     }
 }

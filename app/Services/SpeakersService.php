@@ -2,12 +2,12 @@
 
 namespace App\Services;
 
-use App\Repositories\SpeakerRepository;
-use App\Validations\SpeakerValidation;
+use App\Repositories\SpeakersRepository;
+use App\Validations\SpeakersValidation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class SpeakerService
+class SpeakersService
 {
     /**
      * @var $speaker_repository
@@ -19,7 +19,7 @@ class SpeakerService
      *
      * @param SpeakerRepository $speakerRepository
      */
-    public function __construct(SpeakerRepository $speakerRepository)
+    public function __construct(SpeakersRepository $speakerRepository)
     {
         $this->speaker_repository = $speakerRepository;
     }
@@ -34,7 +34,7 @@ class SpeakerService
 
     public function createSpeaker(array $data) {
 
-        $this->validate = (new SpeakerValidation)->validateSpeaker($data);
+        $this->validate = (new SpeakersValidation)->validateSpeaker($data);
 
         if ($this->validate !== null) {
             return $this->validate;
@@ -46,7 +46,7 @@ class SpeakerService
     }
 
     public function updateSpeaker(array $data, int $id) {
-        $this->validate = (new SpeakerValidation)->validateSpeaker($data);
+        $this->validate = (new SpeakersValidation)->validateSpeaker($data);
 
         if ($this->validate !== null) {
             return $this->validate;
@@ -55,7 +55,7 @@ class SpeakerService
         try {
             $speaker = $this->speaker_repository->update($data, $id);
         } catch (\Exception $e) {
-            $speaker = 'Unable to update post data';
+            $speaker = $e->getMessage();
         }
 
         return $speaker;
@@ -66,7 +66,7 @@ class SpeakerService
         try {
             $speaker = $this->speaker_repository->delete($id);
         } catch (\Exception $e) {
-            $speaker = 'Unable to delete post data';
+            $speaker = $e->getMessage();
         }
 
         return $speaker;

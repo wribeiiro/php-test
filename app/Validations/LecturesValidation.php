@@ -4,7 +4,7 @@ namespace App\Validations;
 
 use App\Validations\AbstractValidation;
 
-class LectureValidation extends AbstractValidation {
+class LecturesValidation extends AbstractValidation {
 
     public function validateCreate(array $data):? array {
 

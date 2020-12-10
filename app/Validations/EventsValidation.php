@@ -4,7 +4,7 @@ namespace App\Validations;
 
 use App\Validations\AbstractValidation;
 
-class EventValidation extends AbstractValidation {
+class EventsValidation extends AbstractValidation {
 
     public function validateEvent(array $data):? array {
 
