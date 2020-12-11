@@ -22,7 +22,7 @@
                             <input type="password" class="form-control" name="password" id="password"
                                     aria-describedby="emailHelp" placeholder="Type your password">
                         </div>
-                        <input type="submit" class="btn btn-purple btn-block" id="createAccBtn" value="Log-in">
+                        <button type="submit" class="btn btn-purple btn-block" id="createAccBtn"> <i class="fa fa-sign-in-alt"></i> Login</button>
                     </form>
                 </div>
             </div>
@@ -58,9 +58,12 @@ $(document).ready(function () {
                 } else {
                     toastr.warning('Invalid Credentials', 'Warning!')
                 }
+
+                $("#createAccBtn").removeAttr("disabled").find("i").removeClass("fa-spinner fa-spin").addClass("fa-sign-in-alt")
             },
             beforeSend: () => {
                 localStorage.clear()
+                $("#createAccBtn").attr("disabled", true).find("i").removeClass("fa-sign-in-alt").addClass("fa-spinner fa-spin")
             },
             error: (err) => {
                 if (err.status === 401 || err.status === 422) {
@@ -68,6 +71,9 @@ $(document).ready(function () {
                 } else {
                     toastr.error('A error ocurred when processing request', 'Error')
                 }
+            },
+            complete: () => {
+                $("#createAccBtn").removeAttr("disabled").find("i").removeClass("fa-spinner fa-spin").addClass("fa-sign-in-alt")
             }
         })
     })
