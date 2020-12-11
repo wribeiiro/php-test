@@ -1,7 +1,7 @@
 # PHPTest App / Api 🐘
 Small crud developed for testing. In crud I chose to reuse the same methods used in the "api" enpoint to carry out the operations.
 
-You can check the project(crud) running on [endpoint](https://wribeiiro.com/php-test) and API running on [endpoint](https://www.wribeiiro.com/php-test/api/v1/auth/speakers)
+You can check the project(crud) running on [endpoint](https://wribeiiro.com/php-test) and API running on [endpoint](https://www.wribeiiro.com/php-test/api/v1/speakers)
 
 ### Tecnologies
 
