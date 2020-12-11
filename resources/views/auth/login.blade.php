@@ -53,7 +53,7 @@ $(document).ready(function () {
                     toastr.success('Redirecting to dashboard... await', 'Success!')
                     localStorage.setItem('access_token', data.data.access_token)
                     setTimeout(() => {
-                        window.location.href = "/dashboard"
+                        window.location.href = '{{route("dashboard")}}'
                     }, 1500)
                 } else {
                     toastr.warning('Invalid Credentials', 'Warning!')
