@@ -37,9 +37,8 @@ Route::group([
 ], function ($router) {
 
     // ROUTES AUTH
-    Route::post('auth/logout', [AuthController::class, 'logout']);
-    Route::post('auth/refresh', [AuthController::class, 'refresh']);
-    Route::post('auth/me', [AuthController::class, 'me']);
+    Route::get('auth/logout', [AuthController::class, 'logout']);
+    Route::get('auth/me', [AuthController::class, 'me']);
 
     // ROUTES SPEAKER
     Route::get('speakers', [SpeakersController::class, 'index']);
