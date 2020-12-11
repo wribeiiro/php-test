@@ -18,11 +18,11 @@ class CreateLecturesTable extends Migration
             $table->id();
             $table->string('title', 200);
             $table->date('date')->default(NULL);
-            $table->foreignId('event_id')->references('id')->on('events');
+            $table->foreignId('event_id')->references('id')->on('events')->onDelete('cascade');
             $table->time('start_time')->default(NULL);
             $table->time('end_time')->default(NULL);
             $table->string('description', 255)->default(NULL);
-            $table->foreignId('speaker_id')->references('id')->on('speakers');
+            $table->foreignId('speaker_id')->references('id')->on('speakers')->onDelete('cascade');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
