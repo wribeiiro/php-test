@@ -8,7 +8,7 @@
 
     <div class="col-12 mt-4">
         <div class="modal fade in" id="modalEvents" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-purple">
                         <h5 class="modal-title">Events</h5>
@@ -18,34 +18,41 @@
                     </div>
 
                     <div class="modal-body">
-                        <div class='form-group'>
-                            <label for='title'>Title: </label>
-                            <input type='text' class='form-control' id='title'>
-                        </div>
-
-                        <div class='form-group'>
-                            <label for='startDate'>Start date: </label>
-                            <div class="input-group date datepicker">
-                                <input type='text' class='form-control' id='startDate' placeholder="99/99/9999">
-                                <span class="input-group-addon">
-                                  <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
+                        <div class="row">
+                            <div class="col-4">
+                                <div class='form-group'>
+                                    <label for='title'>Title: </label>
+                                    <input type='text' class='form-control' id='title'>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class='form-group'>
-                            <label for='endDate'>End date: </label>
-                            <div class="input-group date datepicker">
-                                <input type='text' class='form-control' id='endDate' placeholder="99/99/9999">
-                                <span class="input-group-addon">
-                                  <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
+                            <div class="col-4">
+                                <div class='form-group'>
+                                    <label for='startDate'>Start date: </label>
+                                    <div class="input-group date datepicker">
+                                        <input type='text' class='form-control' id='startDate' placeholder="99/99/9999">
+                                        <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class='form-group'>
-                            <label for='description'>Description: </label>
-                            <textarea class='form-control' id='description'> </textarea>
+                            <div class="col-4">
+                                <div class='form-group'>
+                                    <label for='endDate'>End date: </label>
+                                    <div class="input-group date datepicker">
+                                        <input type='text' class='form-control' id='endDate' placeholder="99/99/9999">
+                                        <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class='form-group'>
+                                    <label for='description'>Description: </label>
+                                    <textarea class='form-control' id='description'> </textarea>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

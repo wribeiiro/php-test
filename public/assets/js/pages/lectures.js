@@ -82,7 +82,7 @@ function datatableLectures() {
                 defaultContent: ``,
                 render: (data, type, row, meta) => {
                     return `
-                    <button type="button" class="btn btn-purple btn-sm" onclick="editModalLecture('${data.id}', '${data.title}', '${dateToDayMonthYear(data.start_date)}', '${dateToDayMonthYear(data.end_date)}', '${data.description}')"> <i class="fa fa-edit"></i></button>
+                    <button type="button" class="btn btn-purple btn-sm" onclick="editModalLecture('${data.id}', '${data.title}', '${dateToDayMonthYear(data.date)}', '${data.event.id}', '${data.start_time}', '${data.end_time}', '${data.description}', '${data.speaker.id}')"> <i class="fa fa-edit"></i></button>
                     <button type="button" class="btn btn-danger btn-sm" onclick="deleteLecture('${data.id}')"> <i class="fa fa-trash"></i></button>`
                 }
             }
@@ -95,11 +95,11 @@ function editModalLecture(id, title, date, event, start_time, end_time, descript
     $('#title').val('').val(title)
     $('#date').val('').val(date)
     $('#event').val('').val(event)
-    $('#startTime').val('').val(start_time)
-    $('#endTime').val('').val(end_time)
+    $('#startTime').val('').val(start_time.substr(0, 5))
+    $('#endTime').val('').val(end_time.substr(0, 5))
     $('#description').val('').val(description)
     $('#speaker').val('').val(speaker)
-    $('#modalEvents').modal('show')
+    $('#modalLectures').modal('show')
 }
 
 function deleteLecture(id) {
@@ -110,7 +110,7 @@ function deleteLecture(id) {
         success: (data) => {
             if (data.code === 200) {
                 toastr.success('Lecture is deleted!', 'Success!')
-                tableEvents.ajax.reload()
+                tableLectures.ajax.reload()
             }
         },
         beforeSend: (xhr) => {
@@ -125,21 +125,21 @@ function deleteLecture(id) {
 $('#saveLecture').on('click', () => {
 
     const params = {
-        url: `${BASE_URL}/api/v1/lecture/create`,
+        url: `${BASE_URL}/api/v1/lectures/create`,
         method: 'POST',
         data: {
             title: $('#title').val().trim(),
             date: dateToYearMonthDay($('#date').val().trim()),
             event_id: $('#event option:selected').val(),
-            start_time: $('#startTime').val().trim(),
-            end_time: $('#endTime').val().trim(),
+            start_time: `${$('#startTime').val().trim()}:00`,
+            end_time: `${$('#endTime').val().trim()}:00`,
             description: $('#description').val().trim(),
             speaker_id: $('#speaker option:selected').val()
         }
     }
 
     if ($('#id').val().trim()) {
-        params.url         = `${BASE_URL}/api/v1/events/update/${$('#id').val().trim()}`
+        params.url         = `${BASE_URL}/api/v1/lectures/update/${$('#id').val().trim()}`
         params.method      = 'PUT'
         params.data.id     = parseInt($('#id').val().trim())
     }
@@ -191,13 +191,13 @@ $('#saveLecture').on('click', () => {
                 toastr.warning(data.data, 'Warning!')
             }
 
-            tableEvents.ajax.reload()
+            tableLectures.ajax.reload()
         },
         beforeSend: (xhr) => {
             xhr.setRequestHeader(`Authorization`, `Bearer ${localStorage.getItem('access_token')}`)
         },
         error: (e) => {
-            console.log(e)
+            console.log(e.responseJSON)
             toastr.error('Ops, a error ocurred! ' + e.responseJSON.data, 'Error!')
         }
     })

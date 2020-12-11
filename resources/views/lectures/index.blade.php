@@ -8,7 +8,7 @@
 
     <div class="col-12 mt-4">
         <div class="modal fade in" id="modalLectures" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-purple">
                         <h5 class="modal-title">Lectures</h5>
@@ -18,50 +18,64 @@
                     </div>
 
                     <div class="modal-body">
-                        <div class='form-group'>
-                            <label for='title'>Title: </label>
-                            <input type='text' class='form-control' id='title'>
-                        </div>
-
-                        <div class='form-group'>
-                            <label for='date'>Date: </label>
-                            <div class="input-group date datepicker">
-                                <input type='text' class='form-control' id='date' placeholder="99/99/9999">
-                                <span class="input-group-addon">
-                                  <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class='form-group'>
+                                    <label for='title'>Title: </label>
+                                    <input type='text' class='form-control' id='title'>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class='form-group'>
-                            <label for='event'>Event: </label>
-                            <select class="form-control" name="event" id="event">
-                                <option selected disabled><-- SELECT --></option>
-                                <option value="">Event 1</option>
-                            </select>
-                        </div>
-
-                        <div class='form-group'>
-                            <label for='startTime'>Start time: </label>
-                            <input type='time' class='form-control' id='startTime'>
-                        </div>
-
-                        <div class='form-group'>
-                            <label for='endTime'>End time: </label>
-                            <input type='time' class='form-control' id='endTime'>
-                        </div>
-
-                        <div class='form-group'>
-                            <label for='Description'>Description: </label>
-                            <textarea class='form-control' id='description'></textarea>
-                        </div>
-
-                        <div class='form-group'>
-                            <label for='speaker'>Speaker: </label>
-                            <select class="form-control" name="speaker" id="speaker">
-                                <option selected disabled><-- SELECT --></option>
-                                <option value="">Speaker 1</option>
-                            </select>
+                            <div class="col-6">
+                                <div class='form-group'>
+                                    <label for='date'>Date: </label>
+                                    <div class="input-group date datepicker">
+                                        <input type='text' class='form-control' id='date' placeholder="99/99/9999">
+                                        <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class='form-group'>
+                                    <label for='event'>Event: </label>
+                                    <select class="form-control" name="event" id="event">
+                                        <option selected disabled><-- SELECT --></option>
+                                        @foreach ($events as $event)
+                                        <option value="{{$event->id}}">{{$event->title}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class='form-group'>
+                                    <label for='speaker'>Speaker: </label>
+                                    <select class="form-control" name="speaker" id="speaker">
+                                        <option selected disabled><-- SELECT --></option>
+                                        @foreach ($speakers as $speaker)
+                                        <option value="{{$speaker->id}}">{{$speaker->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class='form-group'>
+                                    <label for='startTime'>Start time: </label>
+                                    <input type='time' class='form-control' id='startTime'>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class='form-group'>
+                                    <label for='endTime'>End time: </label>
+                                    <input type='time' class='form-control' id='endTime'>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class='form-group'>
+                                    <label for='Description'>Description: </label>
+                                    <textarea class='form-control' id='description'></textarea>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

@@ -9,7 +9,11 @@
             <li class="nav-item {{url()->current() == url('/dashboard') ? "active" : ""}}" >
                 <a class="nav-link" href="{{url('/dashboard')}}"> <i class="fa fa-home"></i> Dashboard <span class="sr-only">(curr page)</span></a>
             </li>
-
+            <li class="nav-item {{url()->current() == url('/speakers/list') ? "active" : ""}}">
+                <a class="nav-link" href="{{url('speakers/list')}}" role="button">
+                    <i class="fa fa-user-astronaut"></i> Speakers
+                </a>
+            </li>
             <li class="nav-item {{url()->current() == url('/events/list') ? "active" : ""}}">
                 <a class="nav-link" href="{{url('events/list')}}">
                     <i class="fa fa-calendar"></i> Events
@@ -18,11 +22,6 @@
             <li class="nav-item {{url()->current() == url('/lectures/list') ? "active" : ""}}">
                 <a class="nav-link" href="{{url('lectures/list')}}">
                     <i class="fab fa-audible"></i> Lectures
-                </a>
-            </li>
-            <li class="nav-item {{url()->current() == url('/speakers/list') ? "active" : ""}}">
-                <a class="nav-link" href="{{url('speakers/list')}}" role="button">
-                    <i class="fa fa-user-astronaut"></i> Speakers
                 </a>
             </li>
         </ul>
