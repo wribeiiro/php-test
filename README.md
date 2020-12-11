@@ -42,7 +42,7 @@ Start the local development server
 ```bash
 $ php artisan serve
 ```
-### List of resources API
+### List of resources API (Bearer Token required)
 Enpoint Auth
 | resource                    |type| description                          | fields|
 |:----------------------------|:--:| :------------------------------------|:--:|
