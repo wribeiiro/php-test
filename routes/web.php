@@ -19,7 +19,10 @@ use App\Http\Controllers\LecturesController;
 |
 */
 Route::get('/', [AuthFormController::class, 'viewLogin'])->name('login');
-Route::get('dashboard', [DashboardController::class, 'index']);
-Route::get('speakers/list', [SpeakersController::class, 'viewSpeakers']);
-Route::get('events/list', [EventsController::class, 'viewEvents']);
-Route::get('lectures/list', [LecturesController::class, 'viewLectures']);
+
+Route::group(['middleware' => 'checkSession'], function () {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('speakers/list', [SpeakersController::class, 'viewSpeakers']);
+    Route::get('events/list', [EventsController::class, 'viewEvents']);
+    Route::get('lectures/list', [LecturesController::class, 'viewLectures']);
+});

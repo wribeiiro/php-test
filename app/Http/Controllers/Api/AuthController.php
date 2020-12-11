@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Validations\AuthValidation;
@@ -161,7 +162,9 @@ class AuthController extends Controller
     public function logoutForm()
     {
         auth('api')->logout();
-        session()->destroy('sessionUser');
+
+        session()->forget('sessionUser');
+
         return redirect('/');
     }
 }

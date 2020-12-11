@@ -28,7 +28,7 @@ Route::group([
 ], function ($router) {
     Route::post('auth/login', [AuthController::class, 'login'])->name('auth/login');
     Route::post('auth/loginForm', [AuthController::class, 'loginForm'])->name('auth/loginForm');
-    Route::any('auth/logoutForm', [AuthController::class, 'logoutForm'])->name('auth/logoutForm');
+    Route::get('auth/logoutForm', [AuthController::class, 'logoutForm'])->name('auth/logoutForm');
 });
 
 Route::group([
